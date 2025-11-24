@@ -1,22 +1,56 @@
-import React, { useState } from 'react';
-import { AlertCircle, Activity } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { AlertCircle, Activity, UsersRoundIcon } from 'lucide-react';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "../schemas/authSchema";
+import type { z } from "zod";
+import axios from "axios";
+
+type LoginFormInputs = z.infer<typeof loginSchema>;
+
+type User = {
+  id: number;
+  name: string;
+  email: string;
+};
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [user, setUser] = useState<User | null>(null);
 
-  const handleSubmit = () => {
-    setError('');
-    
-    if (!email || !password) {
-      setError('Please fill in all fields');
-      return;
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: LoginFormInputs) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/users?email=${data.email}&password=${data.password}`
+      );
+
+      const users = response.data[0];
+      console.log(users);
+
+      if (!users) {
+        setError("Invalid email or password");
+        return;
+      }
+
+      // SUCCESS
+      setError("");
+      setUser(users);
+      alert("Welcome " + users.name);
+
+      alert("Welcome " + users.name);
+      // amazonq-ignore-next-line
+      console.log("Logged user:", user);
+
+    } catch (err) {
+      console.error(err);
+      setError("Server error, please try again later.");
     }
-    
-    // Handle login logic here
-    console.log('Login attempt:', { email, password });
   };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-blue-50 flex items-center justify-center p-4">
@@ -33,7 +67,7 @@ export default function Login() {
         {/* Login Card */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">Sign In</h2>
-          
+
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
               <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
@@ -41,7 +75,8 @@ export default function Login() {
             </div>
           )}
 
-          <div className="space-y-5">
+          {/* Form */}
+          <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
@@ -49,11 +84,11 @@ export default function Login() {
               <input
                 id="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email")}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition"
                 placeholder="you@example.com"
               />
+              {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>}
             </div>
 
             <div>
@@ -63,11 +98,11 @@ export default function Login() {
               <input
                 id="password"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register("password")}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition"
                 placeholder="••••••••"
               />
+              {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>}
             </div>
 
             <div className="flex items-center justify-between">
@@ -87,12 +122,12 @@ export default function Login() {
             </div>
 
             <button
-              onClick={handleSubmit}
+              type="submit"
               className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-md hover:shadow-lg"
             >
               Sign In
             </button>
-          </div>
+          </form>
 
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">

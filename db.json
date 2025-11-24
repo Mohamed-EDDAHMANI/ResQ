@@ -145,12 +145,16 @@
     {
       "id": 1,
       "role": "regulateur",
-      "name": "Ahmed"
+      "name": "Ahmed",
+      "email": "regulateur@gmail.com",
+      "password": "password"
     },
     {
       "id": 2,
       "role": "chef_parc",
-      "name": "Imane"
+      "name": "Imane",
+      "email": "chef_parc@gmail.com",
+      "password": "password"
     }
   ]
 }
