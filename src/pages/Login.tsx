@@ -1,0 +1,117 @@
+import React, { useState } from 'react';
+import { AlertCircle, Activity } from 'lucide-react';
+
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = () => {
+    setError('');
+    
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+    
+    // Handle login logic here
+    console.log('Login attempt:', { email, password });
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-blue-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        {/* Logo and Title Section */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-red-600 rounded-2xl mb-4 shadow-lg">
+            <Activity className="w-10 h-10 text-white" strokeWidth={2.5} />
+          </div>
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">ResQ</h1>
+          <p className="text-gray-600 text-lg">Ambulance Dispatching Solution</p>
+        </div>
+
+        {/* Login Card */}
+        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Sign In</h2>
+          
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
+              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+              <span className="text-red-700 text-sm">{error}</span>
+            </div>
+          )}
+
+          <div className="space-y-5">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                Email Address
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition"
+                placeholder="••••••••"
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <label className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
+                />
+                <span className="ml-2 text-sm text-gray-600">Remember me</span>
+              </label>
+              <button
+                type="button"
+                className="text-sm text-red-600 hover:text-red-700 font-medium"
+              >
+                Forgot password?
+              </button>
+            </div>
+
+            <button
+              onClick={handleSubmit}
+              className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-md hover:shadow-lg"
+            >
+              Sign In
+            </button>
+          </div>
+
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-600">
+              Don't have an account?{' '}
+              <button className="text-red-600 hover:text-red-700 font-semibold">
+                Contact Administrator
+              </button>
+            </p>
+          </div>
+        </div>
+
+        {/* Emergency Notice */}
+        <div className="mt-6 text-center">
+          <p className="text-xs text-gray-500">
+            For emergency access, contact support at{' '}
+            <span className="text-red-600 font-semibold">emergency@resq.com</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
