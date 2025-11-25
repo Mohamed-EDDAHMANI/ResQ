@@ -1,53 +1,26 @@
-import { useState, useEffect } from 'react';
-import { AlertCircle, Activity, UsersRoundIcon } from 'lucide-react';
+import { AlertCircle, Activity } from 'lucide-react';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../schemas/authSchema";
 import type { z } from "zod";
-import axios from "axios";
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { useAppSelector } from '../hooks/useAppSelector';
+import { loginUser } from '../features/user/userSlice';
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
 
-type User = {
-  id: number;
-  name: string;
-  email: string;
-};
-
 export default function Login() {
-  const [error, setError] = useState('');
-  const [user, setUser] = useState<User | null>(null);
+  const dispatch = useAppDispatch();
+  const { currentUser, loading, error } = useAppSelector((state) => state.user);
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data: LoginFormInputs) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/users?email=${data.email}&password=${data.password}`
-      );
-
-      const users = response.data[0];
-      console.log(users);
-
-      if (!users) {
-        setError("Invalid email or password");
-        return;
-      }
-
-      // SUCCESS
-      setError("");
-      setUser(users);
-      alert("Welcome " + users.name);
-
-      alert("Welcome " + users.name);
-      // amazonq-ignore-next-line
-      console.log("Logged user:", user);
-
-    } catch (err) {
-      console.error(err);
-      setError("Server error, please try again later.");
+    const result = await dispatch(loginUser(data));
+    if (loginUser.fulfilled.match(result)) {
+      alert("Welcome " + result.payload.name);
     }
   };
 
@@ -123,9 +96,10 @@ export default function Login() {
 
             <button
               type="submit"
-              className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-md hover:shadow-lg"
+              disabled={loading}
+              className="w-full bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-md hover:shadow-lg"
             >
-              Sign In
+              {loading ? 'Signing In...' : 'Sign In'}
             </button>
           </form>
 
