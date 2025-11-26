@@ -7,44 +7,53 @@
       "lat": 33.589886,
       "lng": -7.603869,
       "crewId": 1,
-      "equipment": ["Oxygène", "Défibrillateur"],
+      "equipment": [
+        "Oxygène",
+        "Défibrillateur"
+      ],
       "lastUpdate": "2025-01-01T12:00:00Z"
     },
     {
       "id": 2,
       "identifier": "AMB-002",
       "status": "on_mission",
-      "lat": 33.573110,
+      "lat": 33.57311,
       "lng": -7.589843,
       "crewId": 2,
-      "equipment": ["Oxygène"],
+      "equipment": [
+        "Oxygène"
+      ],
       "lastUpdate": "2025-01-01T12:02:00Z"
     },
     {
       "id": 3,
       "identifier": "AMB-003",
       "status": "maintenance",
-      "lat": 33.580000,
-      "lng": -7.620000,
+      "lat": 33.58,
+      "lng": -7.62,
       "crewId": null,
       "equipment": [],
       "lastUpdate": "2025-01-01T11:50:00Z"
     }
   ],
-
   "crews": [
     {
       "id": 1,
       "leader": "Dr. Samir",
-      "members": ["Infirmier A", "Secouriste B"]
+      "members": [
+        "Infirmier A",
+        "Secouriste B"
+      ]
     },
     {
       "id": 2,
       "leader": "Dr. Nadia",
-      "members": ["Infirmier C", "Secouriste D"]
+      "members": [
+        "Infirmier C",
+        "Secouriste D"
+      ]
     }
   ],
-
   "incidents": [
     {
       "id": 1,
@@ -52,8 +61,8 @@
       "severity": "high",
       "status": "in_progress",
       "address": "Boulevard Zerktouni, Casablanca",
-      "lat": 33.579000,
-      "lng": -7.632000,
+      "lat": 33.579,
+      "lng": -7.632,
       "patient": "Homme, 45 ans",
       "assignedAmbulanceId": 2,
       "createdAt": "2025-01-01T11:40:00Z",
@@ -65,8 +74,8 @@
       "severity": "critical",
       "status": "pending",
       "address": "Maarif, Casablanca",
-      "lat": 33.586000,
-      "lng": -7.620000,
+      "lat": 33.586,
+      "lng": -7.62,
       "patient": "Femme, 60 ans",
       "assignedAmbulanceId": null,
       "createdAt": "2025-01-01T12:05:00Z",
@@ -78,15 +87,53 @@
       "severity": "low",
       "status": "completed",
       "address": "Derb Sultan, Casablanca",
-      "lat": 33.580500,
-      "lng": -7.600200,
+      "lat": 33.5805,
+      "lng": -7.6002,
       "patient": "Homme, 22 ans",
       "assignedAmbulanceId": 1,
       "createdAt": "2025-01-01T10:20:00Z",
       "updatedAt": "2025-01-01T11:00:00Z"
+    },
+    {
+      "id": 4,
+      "type": "Accident de la route",
+      "severity": "medium",
+      "status": "pending",
+      "address": "Lemaarif, CasaBlanca",
+      "lat": 33.58670043752626,
+      "lng": -7.637018043567333,
+      "patient": "famille, 4 personnes",
+      "assignedAmbulanceId": null,
+      "createdAt": "2025-11-26T08:51:36.740Z",
+      "updatedAt": "2025-11-26T08:51:36.740Z"
+    },
+    {
+      "id": 5,
+      "type": "Urgence médicale",
+      "severity": "critical",
+      "status": "pending",
+      "address": "Lwelfa, hay lfarah, CasaBlanca",
+      "lat": 33.59614334831805,
+      "lng": -7.619928310401324,
+      "patient": "Fille, 4ans",
+      "assignedAmbulanceId": null,
+      "createdAt": "2025-11-26T08:54:45.822Z",
+      "updatedAt": "2025-11-26T08:54:45.822Z"
+    },
+    {
+      "id": 6,
+      "type": "Agression",
+      "severity": "high",
+      "status": "pending",
+      "address": "EL hay lhassani, CasaBlanca",
+      "lat": 33.5702760961903,
+      "lng": -7.678941366323514,
+      "patient": "Homme, 70ans",
+      "assignedAmbulanceId": null,
+      "createdAt": "2025-11-26T08:57:11.332Z",
+      "updatedAt": "2025-11-26T08:57:11.332Z"
     }
   ],
-
   "fleet": [
     {
       "id": 1,
@@ -113,7 +160,6 @@
       "mileage": 45000
     }
   ],
-
   "activityLogs": [
     {
       "id": 1,
@@ -134,13 +180,14 @@
       "timestamp": "2025-01-01T11:50:00Z"
     }
   ],
-
   "settings": {
     "mapDefaultZoom": 13,
-    "mapDefaultCenter": [33.589886, -7.603869],
+    "mapDefaultCenter": [
+      33.589886,
+      -7.603869
+    ],
     "refreshIntervalSec": 15
   },
-
   "users": [
     {
       "id": 1,
