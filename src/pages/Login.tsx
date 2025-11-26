@@ -21,18 +21,18 @@ export default function Login() {
   });
 
   const onSubmit = async (data: LoginFormInputs) => {
-    const result = await dispatch(loginUser(data));
-    if (loginUser.fulfilled.match(result)) {
-      alert("Welcome " + result.payload.name);
-    }
+    await dispatch(loginUser(data));
+    // if (loginUser.fulfilled.match(result)) {
+    //   alert("Welcome " + result.payload.name);
+    // }
   };
 
   useEffect(() => {
     if (currentUser) {
       if (currentUser.role === "chef_parc") {
-        navigate("/dashboard");
-      } else {
         navigate("/home");
+      } else {
+        navigate("/dashboard");
       }
     }
   }, [currentUser, navigate]);
