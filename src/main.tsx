@@ -1,7 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { store } from './app/store'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './app/store'
 import './index.css'
 import App from './App.tsx'
 import 'leaflet/dist/leaflet.css';
@@ -9,7 +10,9 @@ import 'leaflet/dist/leaflet.css';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </StrictMode>,
 )

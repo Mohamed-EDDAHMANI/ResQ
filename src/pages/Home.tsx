@@ -87,6 +87,55 @@ export default function Home() {
 
   const availableAmbulances = ambulances.filter(amb => amb.status === 'available');
 
+  const assignIncidentToAmbulance = async (incidentId: number, ambulanceId: number) => {
+    console.log('Assignment request:', { incidentId, ambulanceId });
+    
+    // Update local state immediately for better UX
+    setIncidents(prev => prev.map(inc => 
+      inc.id === incidentId 
+        ? { ...inc, status: 'in_progress', assignedAmbulanceId: ambulanceId }
+        : inc
+    ));
+    
+    setAmbulances(prev => prev.map(amb => 
+      amb.id === ambulanceId 
+        ? { ...amb, status: 'busy' }
+        : amb
+    ));
+    
+    // Try to update server
+    try {
+      // Test if server is accessible
+      const testResponse = await axios.get('http://localhost:5000/incidents');
+      console.log('Server is accessible');
+      
+      // Get current data from server
+      const [currentIncident, currentAmbulance] = await Promise.all([
+        axios.get(`http://localhost:5000/incidents/${incidentId}`),
+        axios.get(`http://localhost:5000/ambulances/${ambulanceId}`)
+      ]);
+      
+      // Update with PUT requests
+      await Promise.all([
+        axios.put(`http://localhost:5000/incidents/${incidentId}`, {
+          ...currentIncident.data,
+          status: 'in_progress',
+          assignedAmbulanceId: ambulanceId
+        }),
+        axios.put(`http://localhost:5000/ambulances/${ambulanceId}`, {
+          ...currentAmbulance.data,
+          status: 'busy'
+        })
+      ]);
+      
+      console.log('Server updated successfully');
+      
+    } catch (error) {
+      console.warn('Server update failed, changes are only local:', error);
+      // Don't show error to user since local state is updated
+    }
+  };
+
   const handleIncidentCreated = () => {
     // Refresh incidents data
     const fetchIncidents = async () => {
@@ -159,12 +208,17 @@ export default function Home() {
               </div>
             </div>
 
-            <CriticalAlert />
+            <CriticalAlert incidents={incidents} />
           </div>
 
           {/* Right Sidebar */}
           <div className="col-span-4 space-y-4 h-full flex flex-col">
-            <IncidentsPanel incidents={incidents} loading={loading} />
+            <IncidentsPanel 
+              incidents={incidents} 
+              loading={loading}
+              availableAmbulances={availableAmbulances}
+              onAssignAmbulance={assignIncidentToAmbulance}
+            />
             
             <AmbulancesPanel 
               ambulances={ambulances}

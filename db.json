@@ -1,9 +1,9 @@
 {
   "ambulances": [
     {
-      "id": 1,
+      "id": "1",
       "identifier": "AMB-001",
-      "status": "available",
+      "status": "busy",
       "lat": 33.589886,
       "lng": -7.603869,
       "crewId": 1,
@@ -14,7 +14,7 @@
       "lastUpdate": "2025-01-01T12:00:00Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "identifier": "AMB-002",
       "status": "on_mission",
       "lat": 33.57311,
@@ -26,7 +26,7 @@
       "lastUpdate": "2025-01-01T12:02:00Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "identifier": "AMB-003",
       "status": "maintenance",
       "lat": 33.58,
@@ -34,11 +34,21 @@
       "crewId": null,
       "equipment": [],
       "lastUpdate": "2025-01-01T11:50:00Z"
+    },
+    {
+      "id": "4",
+      "identifier": "AMB-004",
+      "status": "available",
+      "lat": 33.589886,
+      "lng": -7.603869,
+      "crewId": null,
+      "equipment": [],
+      "lastUpdate": "2025-11-28T10:41:37.748Z"
     }
   ],
   "crews": [
     {
-      "id": 1,
+      "id": "1",
       "leader": "Dr. Samir",
       "members": [
         "Infirmier A",
@@ -46,7 +56,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "leader": "Dr. Nadia",
       "members": [
         "Infirmier C",
@@ -56,7 +66,7 @@
   ],
   "incidents": [
     {
-      "id": 1,
+      "id": "1",
       "type": "Accident de la route",
       "severity": "high",
       "status": "in_progress",
@@ -69,7 +79,7 @@
       "updatedAt": "2025-01-01T12:10:00Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "type": "Crise cardiaque",
       "severity": "critical",
       "status": "pending",
@@ -82,7 +92,7 @@
       "updatedAt": "2025-01-01T12:05:00Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "type": "Blessure légère",
       "severity": "low",
       "status": "completed",
@@ -95,7 +105,7 @@
       "updatedAt": "2025-01-01T11:00:00Z"
     },
     {
-      "id": 4,
+      "id": "4",
       "type": "Accident de la route",
       "severity": "medium",
       "status": "pending",
@@ -108,7 +118,7 @@
       "updatedAt": "2025-11-26T08:51:36.740Z"
     },
     {
-      "id": 5,
+      "id": "5",
       "type": "Urgence médicale",
       "severity": "critical",
       "status": "pending",
@@ -121,60 +131,68 @@
       "updatedAt": "2025-11-26T08:54:45.822Z"
     },
     {
-      "id": 6,
+      "id": "6",
       "type": "Agression",
       "severity": "high",
-      "status": "pending",
+      "status": "in_progress",
       "address": "EL hay lhassani, CasaBlanca",
       "lat": 33.5702760961903,
       "lng": -7.678941366323514,
       "patient": "Homme, 70ans",
-      "assignedAmbulanceId": null,
+      "assignedAmbulanceId": 1,
       "createdAt": "2025-11-26T08:57:11.332Z",
       "updatedAt": "2025-11-26T08:57:11.332Z"
     }
   ],
   "fleet": [
     {
-      "id": 1,
+      "id": "1",
       "identifier": "AMB-001",
-      "status": "en_service",
+      "status": "hors_service",
       "model": "Mercedes Sprinter",
       "year": 2022,
       "mileage": 15000
     },
     {
-      "id": 2,
+      "id": "2",
       "identifier": "AMB-002",
-      "status": "en_service",
+      "status": "hors_service",
       "model": "Ford Transit",
       "year": 2021,
       "mileage": 23000
     },
     {
-      "id": 3,
+      "id": "3",
       "identifier": "AMB-003",
-      "status": "maintenance",
+      "status": "hors_service",
       "model": "Renault Master",
       "year": 2019,
       "mileage": 45000
+    },
+    {
+      "id": "4",
+      "identifier": "4",
+      "model": "Renault Master",
+      "year": 2019,
+      "mileage": 0,
+      "status": "hors_service"
     }
   ],
   "activityLogs": [
     {
-      "id": 1,
+      "id": "1",
       "action": "Ambulance assignée",
       "description": "AMB-002 assignée à l'incident #1",
       "timestamp": "2025-01-01T11:42:00Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "action": "Nouveau incident",
       "description": "Incident critique #2 ajouté",
       "timestamp": "2025-01-01T12:05:00Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "action": "Statut modifié",
       "description": "AMB-003 passée en maintenance",
       "timestamp": "2025-01-01T11:50:00Z"
@@ -190,14 +208,14 @@
   },
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "role": "regulateur",
       "name": "Ahmed",
       "email": "regulateur@gmail.com",
       "password": "password"
     },
     {
-      "id": 2,
+      "id": "2",
       "role": "chef_parc",
       "name": "Imane",
       "email": "chef_parc@gmail.com",

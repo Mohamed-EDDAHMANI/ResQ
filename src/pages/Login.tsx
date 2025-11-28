@@ -29,10 +29,11 @@ export default function Login() {
 
   useEffect(() => {
     if (currentUser) {
+      console.log(currentUser.role)
       if (currentUser.role === "chef_parc") {
-        navigate("/home");
+        navigate("/FleetManagement");
       } else {
-        navigate("/dashboard");
+        navigate("/home");
       }
     }
   }, [currentUser, navigate]);
