@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { MapPin, AlertTriangle, Clock, CheckCircle, XCircle, BarChart3, Truck } from 'lucide-react';
+import { AlertTriangle, Clock, CheckCircle, XCircle, BarChart3, Truck } from 'lucide-react';
 import * as Dialog from '@radix-ui/react-dialog';
 import CriticalAlert from '../components/CriticalAlert';
 import IncidentsPanel from '../components/IncidentsPanel';
 import AmbulancesPanel from '../components/AmbulancesPanel';
 import { Header } from '../components/Header';
+import { AmbulanceMap } from '../components/AmbulanceMap';
 import axios from 'axios';
 
 interface Incident {
@@ -153,12 +154,8 @@ export default function Home() {
               <div className="p-4 border-b">
                 <h2 className="text-xl font-semibold text-gray-900">Carte des Ambulances</h2>
               </div>
-              <div className="flex-1 bg-gray-100 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600 text-lg">Carte Interactive</p>
-                  <p className="text-gray-500">Positions en temps réel des ambulances</p>
-                </div>
+              <div className="flex-1">
+                <AmbulanceMap ambulances={ambulances} crews={crews} />
               </div>
             </div>
 

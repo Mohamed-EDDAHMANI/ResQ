@@ -99,10 +99,10 @@ export function NewIncidentModal({ open, onOpenChange, onIncidentCreated }: NewI
   };
 
   return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+    <Dialog.Root open={open} onOpenChange={onOpenChange} >
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50 z-50" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-6 w-[800px] max-h-[90vh] overflow-y-auto z-50">
+        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50 z-[9999]" />
+        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-6 w-[800px] max-h-[90vh] overflow-y-auto z-[10000]">
           <div className="flex items-center justify-between mb-6">
             <Dialog.Title className="text-xl font-semibold text-gray-900">
               Créer un Nouvel Incident
@@ -123,7 +123,7 @@ export function NewIncidentModal({ open, onOpenChange, onIncidentCreated }: NewI
                     <Select.Value placeholder="Sélectionner le type..." />
                   </Select.Trigger>
                   <Select.Portal>
-                    <Select.Content className="bg-white border border-gray-300 rounded-lg shadow-lg z-50">
+                    <Select.Content className="bg-white border border-gray-300 rounded-lg shadow-lg z-[10001]">
                       <Select.Viewport className="p-2">
                         <Select.Item value="Accident de la route" className="px-4 py-2 hover:bg-gray-100 cursor-pointer rounded">
                           <Select.ItemText>Accident de la route</Select.ItemText>
@@ -150,7 +150,7 @@ export function NewIncidentModal({ open, onOpenChange, onIncidentCreated }: NewI
                     <Select.Value placeholder="Sélectionner la gravité..." />
                   </Select.Trigger>
                   <Select.Portal>
-                    <Select.Content className="bg-white border border-gray-300 rounded-lg shadow-lg z-50">
+                    <Select.Content className="bg-white border border-gray-300 rounded-lg shadow-lg z-[10001]">
                       <Select.Viewport className="p-2">
                         <Select.Item value="low" className="px-4 py-2 hover:bg-gray-100 cursor-pointer rounded">
                           <Select.ItemText>Faible</Select.ItemText>
