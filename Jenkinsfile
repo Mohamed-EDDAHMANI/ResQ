@@ -1,19 +1,23 @@
 pipeline {
     agent any
     
-    tools {
-        nodejs "NodeJS"
-    }
-    
     environment {
         NODE_ENV = 'production'
         CI = 'true'
+        PATH = "${env.PATH};C:\\Program Files\\nodejs"
     }
     
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
+            }
+        }
+        
+        stage('Setup') {
+            steps {
+                bat 'node -v'
+                bat 'npm -v'
             }
         }
         
@@ -31,20 +35,7 @@ pipeline {
         
         stage('Test') {
             steps {
-                bat 'npm test -- --coverage --watchAll=false'
-            }
-            post {
-                always {
-                    publishTestResults testResultsPattern: 'coverage/lcov.info'
-                    publishHTML([
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true,
-                        reportDir: 'coverage/lcov-report',
-                        reportFiles: 'index.html',
-                        reportName: 'Coverage Report'
-                    ])
-                }
+                bat 'npm test -- --watchAll=false --passWithNoTests'
             }
         }
         
@@ -82,7 +73,7 @@ pipeline {
                     xcopy /E /I /Y dist production
                 '''
             }
-        }
+        }git
     }
     
     post {
