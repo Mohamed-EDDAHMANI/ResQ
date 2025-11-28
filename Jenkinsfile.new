@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build') {
+            steps {
+                bat 'node -v'
+                bat 'npm install'
+                bat 'npm run build'
+            }
+        }
+    }
+}

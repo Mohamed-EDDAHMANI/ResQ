@@ -73,7 +73,7 @@ pipeline {
                     xcopy /E /I /Y dist production
                 '''
             }
-        }git
+        }
     }
     
     post {
