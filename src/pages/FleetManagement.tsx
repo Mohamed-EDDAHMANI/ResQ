@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Truck, Plus, Settings, AlertTriangle, CheckCircle, Wrench, XCircle } from 'lucide-react';
+import { Truck, Plus, Settings, AlertTriangle, CheckCircle, Wrench, XCircle, LogOut } from 'lucide-react';
 import * as Dialog from '@radix-ui/react-dialog';
 import axios from 'axios';
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { clearCurrentUser } from '../features/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 interface FleetVehicle {
   id: string;
@@ -34,6 +37,14 @@ export default function FleetManagement() {
     year: new Date().getFullYear(),
     mileage: 0
   });
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(clearCurrentUser());
+    navigate('/login');
+  };
 
   useEffect(() => {
     fetchData();
@@ -157,9 +168,18 @@ export default function FleetManagement() {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Gestion de la Flotte</h1>
-          <p className="text-gray-600">Gérez l'état et la disponibilité des véhicules</p>
+        <div className="mb-8 flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Gestion de la Flotte</h1>
+            <p className="text-gray-600">Gérez l'état et la disponibilité des véhicules</p>
+          </div>
+          <button 
+            onClick={handleLogout}
+            className="flex items-center space-x-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-600 hover:text-red-600 hover:border-red-200 transition-colors shadow-sm"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>Déconnexion</span>
+          </button>
         </div>
 
         {/* Stats Cards */}

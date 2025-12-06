@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Plus, Bell, Settings, LogOut } from 'lucide-react';
 import { NewIncidentModal } from './NewIncidentModal';
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { clearCurrentUser } from '../features/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   onIncidentCreated: () => void;
@@ -8,6 +11,14 @@ interface HeaderProps {
 
 export function Header({ onIncidentCreated }: HeaderProps) {
   const [showNewIncident, setShowNewIncident] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(clearCurrentUser());
+    navigate('/login');
+  };
+
   return (
     <header className="bg-white shadow-sm border-b">
       <div className="w-full px-6 py-4">
@@ -43,7 +54,11 @@ export function Header({ onIncidentCreated }: HeaderProps) {
             <button className="p-2 text-gray-600 hover:text-red-600 transition-colors">
               <Settings className="w-6 h-6" />
             </button>
-            <button className="p-2 text-gray-600 hover:text-red-600 transition-colors">
+            <button 
+              onClick={handleLogout}
+              className="p-2 text-gray-600 hover:text-red-600 transition-colors"
+              title="Se déconnecter"
+            >
               <LogOut className="w-6 h-6" />
             </button>
           </div>
